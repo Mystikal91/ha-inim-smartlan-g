@@ -1,0 +1,13 @@
+{
+  "domain": "inim_smartlan",
+  "name": "INIM SmartLAN",
+  "codeowners": ["@Mystikal91"],
+  "config_flow": true,
+  "documentation": "https://github.com/Mystikal91/ha-inim-smartlan-g",
+  "integration_type": "hub",
+  "iot_class": "local_polling",
+  "issue_tracker": "https://github.com/Mystikal91/ha-inim-smartlan-g/issues",
+  "loggers": ["custom_components.inim_smartlan"],
+  "requirements": [],
+  "version": "0.1.0"
+}

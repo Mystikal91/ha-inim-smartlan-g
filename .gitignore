@@ -1,0 +1,15 @@
+__pycache__/
+*.pyc
+.venv/
+.pytest_cache/
+.ruff_cache/
+.idea/
+.vscode/
+# Catture e diagnostica: contengono token e credenziali
+*.har
+*.pcap
+*.pcapng
+probe_output*.json
+.env
+.claude/
+CLAUDE.md

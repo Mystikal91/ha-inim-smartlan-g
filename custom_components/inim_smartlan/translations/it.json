@@ -1,0 +1,152 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Collega INIM SmartLAN/G",
+        "description": "Le credenziali viaggiano in HTTP non cifrato: usa una rete fidata.",
+        "data": {
+          "host": "Host",
+          "port": "Porta",
+          "username": "Nome utente",
+          "password": "Password",
+          "code": "Codice"
+        }
+      },
+      "reauth_confirm": {
+        "title": "Nuova autenticazione",
+        "data": {
+          "password": "Password",
+          "code": "Codice"
+        }
+      },
+      "reconfigure": {
+        "title": "Riconfigura INIM SmartLAN/G",
+        "description": "Lascia vuoti password e codice per mantenere quelli salvati.",
+        "data": {
+          "host": "Host",
+          "port": "Porta",
+          "username": "Nome utente",
+          "password": "Password",
+          "code": "Codice"
+        }
+      }
+    },
+    "error": {
+      "cannot_connect": "Impossibile connettersi alla centrale",
+      "invalid_auth": "Login rifiutato: controlla utente, password e codice",
+      "unknown": "Errore imprevisto"
+    },
+    "abort": {
+      "already_configured": "Questa centrale è già configurata",
+      "reauth_successful": "Autenticazione aggiornata",
+      "reconfigure_successful": "Impostazioni aggiornate"
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "data": {
+          "scan_interval": "Intervallo di polling: partizioni, scenario, uscite (secondi)",
+          "zone_scan_interval": "Intervallo di polling: zone (secondi)",
+          "slow_scan_interval": "Intervallo di polling: guasti, GSM, timer, ultimo evento (secondi)",
+          "notify_scenario": "Notifica quando cambia lo scenario",
+          "notify_output": "Notifica quando un'uscita si attiva (es. sirena)",
+          "notify_target": "Invia le notifiche a"
+        }
+      }
+    }
+  },
+  "entity": {
+    "binary_sensor": {
+      "panel_fault": {
+        "name": "Guasto centrale"
+      },
+      "fault_zone_fuse": {
+        "name": "Fusibile zona"
+      },
+      "fault_ibus_fuse": {
+        "name": "Fusibile IBUS"
+      },
+      "fault_low_battery": {
+        "name": "Batteria scarica"
+      },
+      "fault_mains_failure": {
+        "name": "Mancanza rete AC"
+      },
+      "fault_tel_line_down": {
+        "name": "Mancanza linea telefonica"
+      },
+      "fault_jamming": {
+        "name": "Oscuramento radio"
+      },
+      "fault_low_battery_wls": {
+        "name": "Batteria bassa wireless"
+      },
+      "fault_wls_zone_loss": {
+        "name": "Perdita zona wireless"
+      },
+      "fault_nexus_fault": {
+        "name": "Guasto Nexus"
+      },
+      "fault_detector_dusty": {
+        "name": "Rivelatore sporco"
+      },
+      "fault_zone_faults": {
+        "name": "Guasti su zone"
+      },
+      "fault_sounder_faults": {
+        "name": "Guasti su sirene"
+      },
+      "fault_loss_stamp_ongoing": {
+        "name": "Loss stamp in corso"
+      }
+    },
+    "select": {
+      "scenario": {
+        "name": "Scenario di inserimento"
+      }
+    },
+    "sensor": {
+      "system_voltage": {
+        "name": "Tensione di sistema"
+      },
+      "gsm_voltage": {
+        "name": "Tensione GSM"
+      },
+      "gsm_signal": {
+        "name": "Segnale GSM"
+      },
+      "gsm_operator": {
+        "name": "Operatore GSM"
+      },
+      "gsm_credit": {
+        "name": "Credito GSM"
+      },
+      "last_event": {
+        "name": "Ultimo evento"
+      }
+    },
+    "button": {
+      "reset_alarm_memory": {
+        "name": "Azzera memoria allarme {partition}"
+      }
+    },
+    "switch": {
+      "zone_excluded": {
+        "name": "{zone} esclusa"
+      }
+    }
+  },
+  "exceptions": {
+    "zones_not_ready": {
+      "message": "Impossibile inserire, zone non pronte: {zones}"
+    }
+  },
+  "selector": {
+    "notify_target": {
+      "options": {
+        "persistent_notification": "Notifica di Home Assistant"
+      }
+    }
+  }
+}
