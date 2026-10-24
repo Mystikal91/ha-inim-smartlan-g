@@ -1,9 +1,9 @@
 {
   "domain": "inim_smartlan",
   "name": "INIM SmartLAN",
+  "after_dependencies": ["frontend", "http"],
   "codeowners": ["@Mystikal91"],
   "config_flow": true,
-  "dependencies": ["frontend", "http"],
   "documentation": "https://github.com/Mystikal91/ha-inim-smartlan-g",
   "integration_type": "hub",
   "iot_class": "local_polling",

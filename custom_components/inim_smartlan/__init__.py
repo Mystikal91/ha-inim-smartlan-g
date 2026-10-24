@@ -5,8 +5,6 @@ from __future__ import annotations
 import logging
 from pathlib import Path
 
-from homeassistant.components import frontend
-from homeassistant.components.http import StaticPathConfig
 from homeassistant.const import CONF_HOST, CONF_PASSWORD, CONF_PORT, CONF_USERNAME
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.aiohttp_client import async_get_clientsession
@@ -27,7 +25,13 @@ async def _async_register_dashboard_strategy(hass: HomeAssistant) -> None:
     """Serve and load the dashboard strategy once (it is optional: never block the setup)."""
     if hass.data.get(_FRONTEND_KEY):
         return
+    # Optional: only when the frontend is running (after_dependencies in the manifest).
+    if "http" not in hass.config.components or "frontend" not in hass.config.components:
+        return
     try:
+        from homeassistant.components import frontend  # noqa: PLC0415
+        from homeassistant.components.http import StaticPathConfig  # noqa: PLC0415
+
         integration = await async_get_integration(hass, DOMAIN)
         await hass.http.async_register_static_paths(
             [StaticPathConfig(_STRATEGY_URL, str(_STRATEGY_FILE), False)]
