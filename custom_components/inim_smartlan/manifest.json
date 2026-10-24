@@ -1,7 +1,7 @@
 {
   "domain": "inim_smartlan",
   "name": "INIM SmartLAN",
-  "categories": ["security_safety.alarm_systems"],
+  "categories": ["security_safety"],
   "codeowners": ["@Mystikal91"],
   "config_flow": true,
   "documentation": "https://github.com/Mystikal91/ha-inim-smartlan-g",
