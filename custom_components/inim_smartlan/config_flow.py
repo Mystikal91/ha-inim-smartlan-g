@@ -41,6 +41,7 @@ from .const import (
     DOMAIN,
     NOTIFY_PERSISTENT,
 )
+from .notifications import normalize_targets
 
 _SECRET = TextSelector(TextSelectorConfig(type=TextSelectorType.PASSWORD))
 
@@ -182,6 +183,9 @@ class InimOptionsFlow(OptionsFlow):
             if name != "send_message"
         )
         targets = [NOTIFY_PERSISTENT, *[n for n in services if n != NOTIFY_PERSISTENT]]
+        selected = [t for t in normalize_targets(opts.get(CONF_NOTIFY_TARGET)) if t in targets] or [
+            NOTIFY_PERSISTENT
+        ]
         return self.async_show_form(
             step_id="init",
             data_schema=vol.Schema(
@@ -204,11 +208,10 @@ class InimOptionsFlow(OptionsFlow):
                     vol.Required(
                         CONF_NOTIFY_OUTPUT, default=opts.get(CONF_NOTIFY_OUTPUT, False)
                     ): BooleanSelector(),
-                    vol.Required(
-                        CONF_NOTIFY_TARGET, default=opts.get(CONF_NOTIFY_TARGET, NOTIFY_PERSISTENT)
-                    ): SelectSelector(
+                    vol.Required(CONF_NOTIFY_TARGET, default=selected): SelectSelector(
                         SelectSelectorConfig(
                             options=targets,
+                            multiple=True,
                             mode=SelectSelectorMode.DROPDOWN,
                             translation_key="notify_target",
                         )

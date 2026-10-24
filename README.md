@@ -3,7 +3,7 @@
 Local-polling custom integration for INIM alarm panels with a **SmartLAN/G** board,
 built on the board's own web interface (no official API exists).
 
-> **Status: early alpha (0.2.0).** Developed and used on a SmartLiving 515 with a SmartLAN/G board. The API
+> **Status: early alpha (0.2.1).** Developed and used on a SmartLiving 515 with a SmartLAN/G board. The API
 > client is tested against a mock panel; the Home Assistant layer is tested against a simulated panel (CI) but several
 > write features (outputs, zone exclusion, alarm memory reset, arming checks) are not verified on a real panel.
 > Not affiliated with INIM Electronics. It needs a **SmartLAN/G** board (the web interface); the SmartLAN/SI has
@@ -26,8 +26,8 @@ Everything is discovered from the panel, nothing is hardcoded to a specific setu
 
 ## Notifications
 In the integration options you can enable a notification when the scenario changes and/or when an
-output becomes active (e.g. the siren), and choose where it is sent (a Home Assistant notification or
-any `notify.*` service, such as your phone). Events `inim_smartlan_scenario_changed` and
+output becomes active (e.g. the siren), and choose where it is sent: the Home Assistant notification and/or one or more
+`notify.*` services (for example several phones). Events `inim_smartlan_scenario_changed` and
 `inim_smartlan_output_active` are always fired for use in automations.
 
 ## Dashboard

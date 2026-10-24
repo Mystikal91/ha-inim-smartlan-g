@@ -51,7 +51,7 @@
           "slow_scan_interval": "Polling interval: faults, GSM, timers, last event (seconds)",
           "notify_scenario": "Notify when the scenario changes",
           "notify_output": "Notify when an output becomes active (e.g. siren)",
-          "notify_target": "Send notifications to"
+          "notify_target": "Send notifications to (one or more)"
         }
       }
     }

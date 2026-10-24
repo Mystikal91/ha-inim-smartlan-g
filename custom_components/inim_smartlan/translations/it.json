@@ -51,7 +51,7 @@
           "slow_scan_interval": "Intervallo di polling: guasti, GSM, timer, ultimo evento (secondi)",
           "notify_scenario": "Notifica quando cambia lo scenario",
           "notify_output": "Notifica quando un'uscita si attiva (es. sirena)",
-          "notify_target": "Invia le notifiche a"
+          "notify_target": "Invia le notifiche a (uno o più)"
         }
       }
     }

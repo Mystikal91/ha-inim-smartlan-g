@@ -10,7 +10,11 @@ from homeassistant.config_entries import ConfigEntryState
 from homeassistant.core import HomeAssistant
 from homeassistant.exceptions import HomeAssistantError
 from homeassistant.helpers import entity_registry as er
-from pytest_homeassistant_custom_component.common import MockConfigEntry, async_capture_events
+from pytest_homeassistant_custom_component.common import (
+    MockConfigEntry,
+    async_capture_events,
+    async_mock_service,
+)
 
 from custom_components.inim_smartlan.const import (
     DOMAIN,
@@ -196,3 +200,58 @@ async def test_diagnostics_are_redacted(hass: HomeAssistant, make_entry) -> None
     for private in ("127.0.0.1", "Garage", "Kitchen", "Siren", "Bob", "Reader"):
         assert private not in dump, private
     assert result["discovered"]["timers"] == 1
+
+
+async def test_notification_to_several_targets(
+    hass: HomeAssistant, panel: FakePanel, make_entry
+) -> None:
+    phone_a = async_mock_service(hass, "notify", "mobile_app_a")
+    phone_b = async_mock_service(hass, "notify", "mobile_app_b")
+    entry = await _setup(
+        hass,
+        make_entry(
+            options={
+                "notify_scenario": True,
+                "notify_target": ["mobile_app_a", "mobile_app_b", "gone"],
+            }
+        ),
+    )
+
+    panel.scenario = "0"
+    with patch(
+        "custom_components.inim_smartlan.notifications.persistent_notification.async_create"
+    ) as create:
+        await _refresh(entry, "state")
+        await hass.async_block_till_done()
+
+    assert len(phone_a) == 1 and len(phone_b) == 1
+    assert phone_a[0].data["message"] == "Scenario is now: Home"
+    create.assert_not_called()  # delivered somewhere, no need for the fallback
+
+
+async def test_notification_falls_back_when_no_target_works(
+    hass: HomeAssistant, panel: FakePanel, make_entry
+) -> None:
+    entry = await _setup(
+        hass, make_entry(options={"notify_scenario": True, "notify_target": ["gone"]})
+    )
+    panel.scenario = "0"
+    with patch(
+        "custom_components.inim_smartlan.notifications.persistent_notification.async_create"
+    ) as create:
+        await _refresh(entry, "state")
+        await hass.async_block_till_done()
+    create.assert_called_once()
+
+
+async def test_old_single_target_option_still_works(
+    hass: HomeAssistant, panel: FakePanel, make_entry
+) -> None:
+    phone = async_mock_service(hass, "notify", "mobile_app_a")
+    entry = await _setup(
+        hass, make_entry(options={"notify_scenario": True, "notify_target": "mobile_app_a"})
+    )
+    panel.scenario = "0"
+    await _refresh(entry, "state")
+    await hass.async_block_till_done()
+    assert len(phone) == 1
