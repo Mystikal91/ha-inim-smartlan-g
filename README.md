@@ -3,8 +3,8 @@
 Local-polling custom integration for INIM alarm panels with a **SmartLAN/G** board,
 built on the board's own web interface (no official API exists).
 
-> **Status: early alpha (0.1.0).** Developed and used on a SmartLiving 515 with a SmartLAN/G board. The API
-> client is tested against a mock panel; the Home Assistant layer has no automated tests yet and several
+> **Status: early alpha (0.2.0).** Developed and used on a SmartLiving 515 with a SmartLAN/G board. The API
+> client is tested against a mock panel; the Home Assistant layer is tested against a simulated panel (CI) but several
 > write features (outputs, zone exclusion, alarm memory reset, arming checks) are not verified on a real panel.
 > Not affiliated with INIM Electronics. It needs a **SmartLAN/G** board (the web interface); the SmartLAN/SI has
 > no web server and is not supported.

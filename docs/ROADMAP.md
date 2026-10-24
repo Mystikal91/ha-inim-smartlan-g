@@ -4,7 +4,7 @@
 - [x] Sostituire `OWNER` (repository `Mystikal91/ha-inim-smartlan-g`)
 - [x] LICENSE (MIT)
 - [x] CI GitHub scritta (`.github/workflows/validate.yml`: hassfest, HACS, ruff, test); da vedere verde al primo push
-- [x] Test del livello HA scritti (`tests/ha/`, job `ha-tests` in CI): config flow, reauth, reconfigure, entità, comandi, notifiche, diagnostics; **non eseguibili su Windows, da far passare in CI**
+- [x] Test del livello HA scritti (`tests/ha/`, job `ha-tests` in CI): config flow, reauth, reconfigure, entità, comandi, notifiche, diagnostics; 18 test passano in CI (Linux); non eseguibili su Windows
 - [ ] Ruotare password/codice della centrale (i token sono comparsi in file di cattura)
 
 ## Funzioni
