@@ -129,8 +129,8 @@ def _make_app(panel: FakePanel) -> web.Application:
 
 
 @pytest.fixture(autouse=True)
-def _enable_custom_integrations(enable_custom_integrations: None) -> None:
-    """Let Home Assistant load custom_components/ of this repository."""
+def _enable_custom_integrations(enable_custom_integrations: None, socket_enabled: None) -> None:
+    """Load custom_components/ of this repository and allow the localhost panel server."""
 
 
 @pytest.fixture
