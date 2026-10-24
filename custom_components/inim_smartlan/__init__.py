@@ -2,13 +2,40 @@
 
 from __future__ import annotations
 
+import logging
+from pathlib import Path
+
+from homeassistant.components import frontend
+from homeassistant.components.http import StaticPathConfig
 from homeassistant.const import CONF_HOST, CONF_PASSWORD, CONF_PORT, CONF_USERNAME
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.aiohttp_client import async_get_clientsession
+from homeassistant.loader import async_get_integration
 
 from .api import InimClient
-from .const import CONF_CODE, PLATFORMS
+from .const import CONF_CODE, DOMAIN, PLATFORMS
 from .coordinator import InimConfigEntry, InimCoordinator
+
+_LOGGER = logging.getLogger(__name__)
+
+_FRONTEND_KEY = f"{DOMAIN}_frontend_registered"
+_STRATEGY_FILE = Path(__file__).parent / "frontend" / "inim-smartlan-dashboard.js"
+_STRATEGY_URL = f"/{DOMAIN}_static/inim-smartlan-dashboard.js"
+
+
+async def _async_register_dashboard_strategy(hass: HomeAssistant) -> None:
+    """Serve and load the dashboard strategy once (it is optional: never block the setup)."""
+    if hass.data.get(_FRONTEND_KEY):
+        return
+    try:
+        integration = await async_get_integration(hass, DOMAIN)
+        await hass.http.async_register_static_paths(
+            [StaticPathConfig(_STRATEGY_URL, str(_STRATEGY_FILE), False)]
+        )
+        frontend.add_extra_js_url(hass, f"{_STRATEGY_URL}?v={integration.version}")
+        hass.data[_FRONTEND_KEY] = True
+    except Exception:  # noqa: BLE001
+        _LOGGER.warning("Could not register the dashboard strategy", exc_info=True)
 
 
 async def async_setup_entry(hass: HomeAssistant, entry: InimConfigEntry) -> bool:
@@ -20,6 +47,7 @@ async def async_setup_entry(hass: HomeAssistant, entry: InimConfigEntry) -> bool
         entry.data[CONF_PASSWORD],
         entry.data[CONF_CODE],
     )
+    await _async_register_dashboard_strategy(hass)
     coordinator = InimCoordinator(hass, entry, client)
     await coordinator.async_config_entry_first_refresh()
     entry.runtime_data = coordinator

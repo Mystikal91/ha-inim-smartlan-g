@@ -31,7 +31,8 @@ any `notify.*` service, such as your phone). Events `inim_smartlan_scenario_chan
 `inim_smartlan_output_active` are always fired for use in automations.
 
 ## Dashboard
-Ready-to-paste cards that adapt to your panel, and automation examples: [docs/dashboard.md](docs/dashboard.md).
+A ready-made dashboard: *Settings -> Dashboards -> Add dashboard -> INIM SmartLAN* (restart Home Assistant
+first). Also ready-to-paste cards and automation examples: [docs/dashboard.md](docs/dashboard.md).
 
 ## Install
 HACS -> Custom repositories -> add `https://github.com/Mystikal91/ha-inim-smartlan-g` (type *Integration*), install, restart, then

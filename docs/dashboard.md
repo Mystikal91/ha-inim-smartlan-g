@@ -6,6 +6,31 @@ to partitions, zones and outputs. None of the examples below hardcodes a name.
 > These snippets have **not been tested on a live dashboard yet**. If one does not work with your
 > Home Assistant version, open an issue with the error shown by the card editor.
 
+## 0. Automatic dashboard (recommended)
+
+The integration ships a dashboard that builds itself from the entities your panel exposes.
+
+1. Update the integration, **restart Home Assistant** and reload the browser page (Ctrl+F5) so the
+   frontend picks up the new script.
+2. *Settings -> Dashboards -> Add dashboard* and choose **INIM SmartLAN**, then *Create*.
+
+You get a *Control* view (partitions with arm/disarm modes, scenario, outputs and reset buttons,
+zones) and a *Status* view (faults, diagnostics, timers, zone exclusion). It is regenerated when
+entities are added, enabled or hidden. Entities that are disabled (zone exclusion, timers, most fault
+bits) only appear after you enable them. Hidden entities are skipped.
+
+To set the title, or if the entry is missing from the dialog, create a blank dashboard, open the raw
+configuration editor and use:
+
+```yaml
+strategy:
+  type: custom:inim-smartlan
+  title: Alarm
+```
+
+It uses tile card features (`alarm-modes`, `select-options`), available in recent Home Assistant releases.
+It could only be checked offline so far; please report problems.
+
 ## 1. No configuration: use areas
 
 1. *Settings -> Devices & services -> INIM SmartLAN -> the device* and set an **area** (e.g. "Alarm").

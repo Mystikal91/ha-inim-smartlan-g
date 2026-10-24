@@ -21,5 +21,7 @@
 
 - [x] Notifiche opzionali (cambio scenario, uscita attiva) + eventi `inim_smartlan_scenario_changed` / `inim_smartlan_output_active`; da verificare in HA
 
+- [x] Strategia di dashboard "INIM SmartLAN" (`frontend/inim-smartlan-dashboard.js`), registrata dall'integrazione; test offline con Node, **da provare in un frontend reale**
+
 ## Idee
 - Analisi dell'app Inim Home (cattura con PCAPdroid) se mancano funzioni o eventi in tempo reale
